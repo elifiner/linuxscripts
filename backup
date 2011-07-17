@@ -1,0 +1,16 @@
+#!/bin/sh
+
+LOG="/var/log/backup.log"
+
+echo "*** Backup started at `date` ***" >> $LOG
+
+OPTS="-a -v --delete -e ssh $@"
+HOST="lsihost041"
+
+rsync $OPTS ~/Documents/ $HOST:backup/Documents/ >> $LOG
+rsync $OPTS ~/bin/ $HOST:backup/bin/ >> $LOG
+rsync $OPTS ~/config/ $HOST:backup/config/ >> $LOG
+rsync $OPTS ~/source/ $HOST:backup/source/ >> $LOG
+rsync $OPTS ~/.purple/ $HOST:backup/.purple/ >> $LOG
+
+echo "*** Backup ended at `date` ***" >> $LOG

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+CURRDIR=${PWD#$HOME/}
+echo ~/$CURRDIR
+OPTS="-a -v --delete -e ssh --exclude '*.pyc' --exclude '.git' --exclude '*.swp' --exclude '*.swo'"
+
+# Synchronize sources
+eval rsync $OPTS ~/source/tlib $HOST:source
+eval rsync $OPTS ~/source/tests $HOST:source
+eval ssh $HOST mkdir -p $CURRDIR
+eval rsync $OPTS ~/$CURRDIR/ $HOST:$CURRDIR
+
+# Run TLIB
+eval 'ssh -t $HOST "cd ~/$CURRDIR; ~/source/tlib/runner.py $*"'

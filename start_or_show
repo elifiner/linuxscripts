@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <window-class> <command>"
+    echo "Run \"wmctrl -xl\" to get the window-classes of shown windows."
+    exit 1
+fi
+
+# find the running application (and the accurate window class)
+# WINDOW_CLASS=`wmctrl -xl | cut -d" " -f4| grep "$1"`
+WINDOW_CLASS=`wmctrl -xl | grep "$1" | cut -d" " -f4`
+
+# show the app if its running and run it if it isn't
+if [ -z $WINDOW_CLASS ]; then
+    eval $2 1> /dev/null 2> /dev/null
+else
+    wmctrl -xa $WINDOW_CLASS
+fi
