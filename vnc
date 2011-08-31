@@ -1,0 +1,16 @@
+#!/usr/bin/python
+
+import os
+import sys
+
+MACHINES = {
+    "ofer" : "oferko-ubuntu",
+    "ayala" : "ayalash-ThinkPad-W520",
+    "yuval" : "tpowner-ThinkPad-W520",
+}
+
+if len(sys.argv) == 1:
+    print >>sys.stderr, "Missing arguments"
+    sys.exit(1)
+
+os.system("vncviewer %s" % MACHINES.get(sys.argv[1]) or sys.argv[1])
