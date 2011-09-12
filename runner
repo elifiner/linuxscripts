@@ -2,7 +2,7 @@
 
 CURRDIR=${PWD#$HOME/}
 echo ~/$CURRDIR
-OPTS="-a -v --delete -e ssh --exclude '*.pyc' --exclude '.git' --exclude '*.swp' --exclude '*.swo'"
+OPTS="-a -v --delete -e ssh --exclude '*.pyc' --exclude '*.swp' --exclude '*.swo'"
 
 # Synchronize sources
 eval rsync $OPTS ~/source/tlib $HOST:source
