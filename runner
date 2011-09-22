@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# Setup host and system environment variables
+. ~/.xenv
+
+HOST=`cat ~/.xhost`
+
+SYSTEM="-s `cat ~/.xsystem`"
+case "$*" in
+    *-s*) SYSTEM=""
+esac
+
 CURRDIR=${PWD#$HOME/}
 echo ~/$CURRDIR
 OPTS="-a -v --delete -e ssh --exclude '*.pyc' --exclude '*.swp' --exclude '*.swo'"
@@ -7,8 +17,6 @@ OPTS="-a -v --delete -e ssh --exclude '*.pyc' --exclude '*.swp' --exclude '*.swo
 # Synchronize sources
 eval rsync $OPTS ~/source/tlib $HOST:source
 eval rsync $OPTS ~/source/tests $HOST:source
-eval ssh $HOST mkdir -p $CURRDIR
-eval rsync $OPTS ~/$CURRDIR/ $HOST:$CURRDIR
 
 # Run TLIB
-eval 'ssh -t $HOST "cd ~/$CURRDIR; ~/source/tlib/runner.py $*"'
+eval 'ssh -t $HOST "cd ~/$CURRDIR; ~/source/tlib/runner.py $SYSTEM $*"'
