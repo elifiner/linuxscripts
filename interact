@@ -1,2 +1,2 @@
 #!/bin/sh
-~/bin/runner /a/home/elig/source/tlib/tests/interactive.py $*
+~/bin/runner tlib://tests/interactive.py $*
