@@ -1,0 +1,7 @@
+#!/bin/sh
+if test -z $1; then
+    echo Prints the full command of the process listening on a socket.
+    echo "Usage: $0 <port>"
+    exit
+fi
+ps -o command= -p `lsof -t -i :$1` 2> /dev/null

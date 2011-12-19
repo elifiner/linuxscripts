@@ -1,0 +1,2 @@
+#!/bin/sh
+pycscope.py -R -f ~/cscope.python ~/source/tlib ~/source/tests /usr/local/lib/python2.7
